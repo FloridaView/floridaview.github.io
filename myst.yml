@@ -1,60 +1,65 @@
 version: 1
 project:
-  title: Website Title
-  # authors:
-  #   - name: Author Name
-  copyright: '2026'
+  title: FloridaView
+  description: Earth observation education, data discovery, and applied geospatial learning for Florida.
+  copyright: "2026 FloridaView"
+  github: FloridaView/floridaview.github.io
+  keywords:
+    - Florida
+    - Earth observation
+    - remote sensing
+    - LiDAR
+    - geospatial education
+    - AmericaView
   exclude:
     - _build
-    - Thumbs.db
+    - .cache
+    - node_modules
+    - templates
+    - vendor
     - .DS_Store
-    - '**.ipynb_checkpoints'
-    - generate_rss.py
-    - inject_comments.py
-    - rss.xml
-    - atom.xml
-    - CONDUCT.md
-    - CONTRIBUTING.md
-    - README.md
-  github: opengeos/myst-website-template
-  thebe:
-    binder:
-      repo: opengeos/myst-website-template
-      provider: github
-      url: https://mybinder.org
-      ref: main
-  bibliography:
-    - pages/references.bib
+    - "**.ipynb_checkpoints"
+  static_files:
+    - assets
+    - downloads
   toc:
     - file: index.md
-    - title: Preface
+    - file: pages/mission.md
+    - file: pages/pi.md
+    - file: pages/data.md
+    - file: pages/tutorials/index.md
       children:
-        - file: pages/preface.md
-    - title: Getting Started
-      children:
-        - file: pages/part01/getting-started.md
-        - file: pages/part01/installation.md
-    - title: Examples
-      children:
-        - file: pages/part02/first-example.md
-    - file: blog.md
-      children:
-        - file: tags/myst-markdown.md
-        - file: tags/tutorial.md
-        - file: tags/github-pages.md
-    - pattern: posts/*.md
-      hidden: true
+        - file: pages/lidar-labs/index.md
+          children:
+            - file: pages/lidar-labs/lab-01.md
+            - file: pages/lidar-labs/lab-02.md
+            - file: pages/lidar-labs/lab-03.md
+            - file: pages/lidar-labs/lab-04.md
+            - file: pages/lidar-labs/lab-05.md
+            - file: pages/lidar-labs/lab-06.md
+            - file: pages/lidar-labs/lab-07.md
+            - file: pages/lidar-labs/lab-08.md
+            - file: pages/lidar-labs/lab-09.md
+            - file: pages/lidar-labs/lab-10.md
+        - file: pages/tutorials/resources.md
+    - file: pages/software.md
+    - file: pages/accessibility.md
+    - file: pages/contact.md
 site:
+  title: FloridaView
+  template: .cache/book-theme
   options:
-    logo: logo.png
-    logo_dark: logo.png
-    favicon: fav.ico
+    logo: assets/brand/floridaview-logo-header.png
+    logo_dark: assets/brand/floridaview-logo-header.png
+    logo_alt: FloridaView
+    favicon: assets/brand/favicon.ico
     folders: true
     style: custom.css
-    # analytics_google: G-XXX
-  actions:
-    - title: RSS
-      url: https://opengeos.org/myst-website-template/rss.xml
-  template: book-theme
   parts:
-    primary_sidebar_footer: ''
+    footer: footer.md
+    primary_sidebar_footer: sidebar-footer.md
+  actions:
+    - title: GitHub
+      url: https://github.com/FloridaView/floridaview.github.io
+    - title: AmericaView
+      url: https://americaview.org/

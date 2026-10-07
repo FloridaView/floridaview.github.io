@@ -1,0 +1,8 @@
+FloridaView deployment commands have been consolidated.
+
+Use README.md for pinned installation and local build commands.
+Use MAINTAINER_GUIDE.md for review branch, PR, CI, merge, Pages, and Namecheap workflow.
+Use QUALITY_REPORT.md and IMPLEMENTATION_CHECKLIST.md for release status.
+
+Do not restore the older September release candidate or deploy from the temporary
+Vercel preview. The final October 7 ZIP is the approved implementation baseline.

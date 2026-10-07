@@ -1,55 +1,96 @@
-.myst-fm-downloads-dropdown {
-  display: none !important;
+:root {
+  --flv-blue: #0B3D91;
+  --flv-blue-deep: #082B67;
+  --flv-red: #C8102E;
+  --flv-teal: #176F69;
+  --flv-gray: #B0B5BD;
+  --flv-ink: #142033;
+  --flv-muted: #566273;
+  --flv-soft: #F6F8FB;
+  --flv-line: rgba(11, 61, 145, .14);
 }
 
-table td:first-child,
-table th:first-child {
-  white-space: nowrap;
-}
+html { scroll-behavior: smooth; }
+body { color: var(--flv-ink); }
 
-#giscus-comments {
-  max-width: 100% !important;
-  padding: 0 !important;
-}
+a { text-underline-offset: .18em; }
+a:hover { color: var(--flv-teal); }
 
-.giscus,
-.giscus-frame {
-  width: 100% !important;
-}
+h1, h2, h3 { letter-spacing: -.022em; }
+h1 { color: var(--flv-blue); font-weight: 760; }
+h2 { margin-top: 2.2rem; }
 
-#featured-projects + .myst-grid .myst-card-footer,
-#featured-projects + .myst-grid .myst-card-title {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding-left: 1rem !important;
-  padding-right: 1rem !important;
-  text-align: center !important;
-  white-space: nowrap;
-}
-
-#featured-projects + .myst-grid .myst-card-footer > *,
-#featured-projects + .myst-grid .myst-card-title > * {
-  text-align: center !important;
-}
-
-#featured-projects + .myst-grid .myst-card-footer p,
-#featured-projects + .myst-grid .myst-card-footer strong {
-  margin: 0 auto;
-}
-
-#posts ~ .myst-grid .myst-card-header,
-#posts ~ * .myst-grid .myst-card-header {
-  padding: 0.5rem !important;
-  border-bottom: none !important;
-  background: transparent !important;
-}
-
-#posts ~ .myst-grid .myst-card-header img,
-#posts ~ * .myst-grid .myst-card-header img {
+/* FloridaView homepage brand mark: prominent but not billboard-sized. */
+img[alt="FloridaView logo"] {
   display: block;
-  width: 100%;
-  margin: 0 !important;
-  border: 1px solid rgba(128, 128, 128, 0.3);
-  border-radius: 4px;
+  width: min(100%, 680px);
+  max-height: 430px;
+  object-fit: contain;
+  margin: .35rem auto 2rem auto;
+}
+
+/* Cards act as the core information architecture on landing pages. */
+.myst-card {
+  border: 1px solid var(--flv-line) !important;
+  border-radius: 16px !important;
+  box-shadow: 0 10px 30px rgba(20, 32, 51, .055);
+  transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+  overflow: hidden;
+}
+.myst-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(35, 143, 134, .35) !important;
+  box-shadow: 0 16px 38px rgba(20, 32, 51, .095);
+}
+.myst-card-title { color: var(--flv-blue); font-weight: 720; }
+
+blockquote {
+  border-left: 4px solid var(--flv-teal) !important;
+  background: var(--flv-soft);
+  border-radius: 0 10px 10px 0;
+}
+
+table { border-radius: 10px; overflow: hidden; }
+table thead { background: var(--flv-blue); color: white; }
+
+/* Instructional screenshots remain readable while retaining breathing room. */
+article img:not([alt="FloridaView logo"]) {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin: 1.15rem auto;
+  border-radius: 8px;
+}
+
+.myst-fm-downloads-dropdown { display: inline-flex !important; }
+
+/* Site-wide institutional footer. */
+.footer {
+  margin-top: 4rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--flv-line);
+  color: var(--flv-muted);
+}
+.footer .myst-card {
+  box-shadow: none;
+  background: transparent;
+}
+
+/* Make the custom sidebar footer quiet and institutional. */
+nav + div, .primary-sidebar-footer {
+  font-size: .86rem;
+}
+
+@media (max-width: 760px) {
+  h1 { font-size: 2rem; }
+  .myst-card { border-radius: 12px !important; }
+  img[alt="FloridaView logo"] { width: min(100%, 560px); }
+}
+
+/* Visible focus and reduced-motion support for keyboard and motion-sensitive users. */
+:focus-visible { outline: 3px solid var(--flv-blue); outline-offset: 3px; }
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .myst-card { transition: none; }
+  .myst-card:hover { transform: none; }
 }

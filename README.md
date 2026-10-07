@@ -1,94 +1,42 @@
-# MyST Website Template
+# FloridaView
 
-A reusable template for building websites with [MyST Markdown](https://mystmd.org/) and automated deployment via GitHub Actions.
+Source for the FloridaView website and ten LiDAR laboratories. The production address is **https://flview.org**; see [QUALITY_REPORT.md](QUALITY_REPORT.md) for the actual release status. A successful local build is not evidence of a live deployment.
 
-## Features
+The repository remains in the **FloridaView** GitHub organization under Prof. Caiyun Zhang's institutional stewardship. Raghupathi Chepyala is the technical contributor. No ownership transfer is part of this release.
 
-- **MyST Markdown** source format with Jupyter notebook integration
-- **GitHub Pages** deployment on push to `main`
-- **Netlify PR previews** for pull request review
-- **Pre-commit hooks**: Black, codespell, nbstripout for code quality
+## Publishing architecture
 
-## Quick Start
+Each `pages/lidar-labs/lab-NN.md` is the single source for its website page and downloadable PDF. GitHub Actions builds all ten Typst PDFs **before** building MyST HTML, validates the complete artifact, then deploys `_build/html` through GitHub Pages. Generated files are not committed. Namecheap provides DNS for the custom domain.
 
-1. Click **Use this template** on GitHub to create a new repository
-2. Update `myst.yml` with your site title, author, and table of contents
-3. Replace placeholder content in `pages/` with your own pages
-4. Push to GitHub to trigger automated builds
+The [data gateway](pages/data.md) links to authoritative data providers. Course datasets that have not been published are explicitly labeled unavailable. Large datasets belong in Zenodo, ArcGIS Online where appropriate, or their authoritative repository.
 
-## Project Structure
+## Reproduce the build
 
-```
-.
-├── myst.yml                    # MyST configuration
-├── index.md                    # Landing page
-├── requirements.txt            # Python dependencies
-├── logo.png                    # Site logo
-├── fav.ico                     # Favicon
-├── CNAME                       # Custom domain (optional)
-├── robots.txt                  # Search engine directives
-├── pages/                      # Site content
-│   ├── preface.md
-│   ├── part01/
-│   │   ├── getting-started.md
-│   │   └── installation.md
-│   ├── part02/
-│   │   └── first-example.md
-│   ├── references.bib          # Bibliography
-│   ├── jupytext.toml
-│   └── images/                 # Shared images
-├── .pre-commit-config.yaml     # Pre-commit hook configuration
-├── CONTRIBUTING.md              # Contribution guidelines
-├── CONDUCT.md                   # Code of conduct
-└── .github/workflows/
-    ├── build.yml               # PR preview builds (Netlify)
-    └── deploy.yml              # Production deployment (GitHub Pages)
-```
-
-## Customization
-
-### Site Metadata
-
-Edit `myst.yml`:
-- `project.title`: your site title
-- `project.authors`: author name(s)
-- `project.github`: your GitHub `username/repo`
-- `project.toc`: table of contents structure
-
-### Adding Pages
-
-1. Create a new `.md` file in the appropriate `pages/` subdirectory
-2. Add the file to `project.toc` in `myst.yml`
-
-## Building Locally
+Install Node **24.19.0**, Python **3.12.14**, and the official Typst CLI **0.15.0**. Use a virtual environment for Python dependencies.
 
 ```bash
-pip install -r requirements.txt
-npm install -g mystmd
-myst build --html
+python3 -m venv .venv
+source .venv/bin/activate
+python -m pip install -r requirements-build.txt
+npm ci --ignore-scripts
+npm run build
 ```
 
-The built site will be in `_build/html/`.
+`npm run build` runs `scripts/release_gate.sh`: it retrieves the pinned book theme, cleans generated outputs, validates sources, generates ten PDFs, builds strict HTML, sets production metadata, and validates every bundled download and internal link. Internet access is required for the locked npm dependencies, pinned theme, and versioned Typst packages on first build.
 
-## Deployment
+For local browser review, run `npm start` after the build and open the URL printed by MyST. Check both desktop and mobile widths, light mode, keyboard navigation, and every lab download. Preview does not publish anything.
 
-### GitHub Pages (production)
+```bash
+python3 scripts/check_external_links.py
+```
 
-Pushes to `main` automatically trigger the `deploy.yml` workflow, which builds the HTML site and deploys to GitHub Pages.
+The external-link report separates confirmed 404/410 failures from inconclusive timeouts or access restrictions. Review both; an exit code of zero does not mean every vendor link was verified.
 
-By default, `BASE_URL` is set to `/<repo-name>` so that asset paths work correctly when served at `username.github.io/repo-name/`. If you configure a custom domain (via `CNAME`), remove the `BASE_URL` environment variable from `deploy.yml` since the site will be served from the root.
+## Maintenance and release
 
-### Netlify (PR previews)
+- [PI quick guide](PI_QUICK_GUIDE.md): edit one lab and publish both outputs.
+- [Maintainer guide](MAINTAINER_GUIDE.md): exact review, CI, domain, and rollback workflow.
+- [Release checklist](IMPLEMENTATION_CHECKLIST.md): outstanding gates.
+- [Source audit](SOURCE_AUDIT.md): authority and targeted migration repairs.
 
-Pull requests trigger the `build.yml` workflow, which builds a preview and posts the URL as a PR comment. Requires `NETLIFY_AUTH_TOKEN` and `NETLIFY_SITE_ID` secrets.
-
-## GitHub Secrets
-
-| Secret | Purpose |
-|--------|---------|
-| `NETLIFY_AUTH_TOKEN` | Netlify authentication for PR previews |
-| `NETLIFY_SITE_ID` | Netlify site ID for PR previews |
-
-## License
-
-[MIT](LICENSE)
+Software licensing is in `LICENSE`; educational-content and third-party terms are in `LICENSE-CONTENT`. Original starter attribution is retained in `vendor/STARTER_LICENSE`.

@@ -1,6 +1,0 @@
-ghp-import
-jupyter-book
-jupytext
-matplotlib
-mystmd
-numpy
