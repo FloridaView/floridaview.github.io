@@ -1,0 +1,25 @@
+name: Build and validate FloridaView
+description: One shared release gate for pull requests and production.
+runs:
+  using: composite
+  steps:
+    - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
+      with:
+        node-version-file: .nvmrc
+        cache: npm
+    - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
+      with:
+        python-version: '3.12.14'
+        cache: pip
+        cache-dependency-path: requirements-build.txt
+    - uses: typst-community/setup-typst@48aeee7543d37f01afd1ffb27307dc277387ba13 # v4
+      with:
+        typst-version: '0.15.0'
+    - name: Install locked dependencies
+      shell: bash
+      run: |
+        npm ci --ignore-scripts
+        python -m pip install -r requirements-build.txt
+    - name: Build PDFs, then HTML; verify deploy artifact
+      shell: bash
+      run: bash scripts/release_gate.sh

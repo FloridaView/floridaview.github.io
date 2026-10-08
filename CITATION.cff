@@ -1,0 +1,14 @@
+cff-version: 1.2.0
+message: "If you use FloridaView educational materials, please cite the FloridaView project and the specific lab or dataset when available."
+title: "FloridaView Earth Observation Education Platform"
+type: software
+authors:
+  - family-names: Zhang
+    given-names: Caiyun
+  - family-names: Chepyala
+    given-names: Raghupathi
+repository-code: "https://github.com/FloridaView/floridaview.github.io"
+url: "https://flview.org"
+license: MIT
+version: "1.0.0"
+date-released: "2026-10-07"
