@@ -1,0 +1,27 @@
+FloridaView deployment continuation
+
+This file supersedes the older package-copy commands. Do not overwrite a repository
+with rsync --delete, reset its history, or copy an older release candidate over the
+approved final source.
+
+Use the prepared review branch, or clone the official FloridaView repository and
+create a review branch from its current main. Preserve the existing .git history.
+Install Node 24.19.0, Python 3.12.14, and official Typst 0.15.0; then follow README.md.
+
+  python3 -m venv .venv
+  source .venv/bin/activate
+  python -m pip install -r requirements-build.txt
+  npm ci --ignore-scripts
+  npm run build
+  python3 scripts/check_external_links.py
+  npm start
+
+The local build's success line is:
+PASS: FloridaView build and artifact gates complete
+
+That line does not cover browser review, GitHub CI, DNS, or HTTPS.
+
+Complete IMPLEMENTATION_CHECKLIST.md, push the review branch, open a PR, verify the
+latest CI and browser/PDF review, then merge. MAINTAINER_GUIDE.md is the authoritative
+operational guide for Pages configuration, Namecheap records, production acceptance,
+and rollback. QUALITY_REPORT.md records which gates have actually run.

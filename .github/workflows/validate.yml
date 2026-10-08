@@ -1,0 +1,26 @@
+name: Validate FloridaView
+on:
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: validate-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+      - uses: ./.github/actions/build
+      - name: Upload validated review build and evidence
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: floridaview-review-build
+          path: |
+            _build/html
+            _build/verification
+            pages/lidar-labs/exports/lidar
+          retention-days: 14
+          if-no-files-found: error

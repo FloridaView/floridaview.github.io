@@ -1,0 +1,17 @@
+{
+  "name": "floridaview",
+  "version": "1.0.0",
+  "private": true,
+  "description": "FloridaView MyST website and single-source LiDAR PDFs",
+  "engines": {
+    "node": ">=22 <25"
+  },
+  "scripts": {
+    "build": "bash scripts/release_gate.sh",
+    "check": "python3 scripts/validate_source.py",
+    "start": "myst start"
+  },
+  "devDependencies": {
+    "mystmd": "1.11.0"
+  }
+}
