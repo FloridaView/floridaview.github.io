@@ -12,6 +12,6 @@
     "start": "myst start"
   },
   "devDependencies": {
-    "mystmd": "1.11.0"
+    "mystmd": "1.12.0"
   }
 }
